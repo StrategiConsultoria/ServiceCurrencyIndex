@@ -42,3 +42,9 @@
 | `end_month`   | `int` | `1 ... 12`            | Select end interval month           |
 | `end_year`    | `int` | `1 ... current year`  | Select end interval year            |
 
+#### Start Server
+
+```
+export FLASK_APP='server:create_app()'
+flask run
+```
