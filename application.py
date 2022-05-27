@@ -3,4 +3,4 @@ import logging
 
 logging.basicConfig( format='%(asctime)s - %(module)s - %(filename)s - %(message)s')
 
-application =  create_app()
+app =  create_app()
