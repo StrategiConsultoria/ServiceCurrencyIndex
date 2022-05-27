@@ -2,7 +2,7 @@
 ## Service Indice 
 
 ###### type csv
-```http
+```
   GET /csv?indice=ipca
   
   GET /csv/2022?start_month=5
@@ -18,7 +18,7 @@
   GET /csv?indice=ipca&end_year=2022
 ```
 ###### type json
-```http
+```
   GET /json/
   GET /json?indice=ipca
   
