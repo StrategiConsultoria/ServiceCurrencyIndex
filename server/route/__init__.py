@@ -6,20 +6,20 @@ from datetime import datetime
 import pandas
 import json
 import tempfile
+import logging
 
+logging.info('Start Routes')
 app = current_app
-
-
-def init_app(app):
-    app.init_app(app)
 
 
 @app.route('/<file>/')
 async def all_indices(file):
+    logging.info(f'route {file}')
     if not file in ('json', 'csv'):
         abort(404)
 
     indice = request.args.get('indice')
+    logging.info(f'indece {indice}')
     if indice:
         await update_database()
 
