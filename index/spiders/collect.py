@@ -1,6 +1,6 @@
 from time import sleep
 import scrapy
-from indices.utils.errors import SeridNotIsNumberError,SeridNotInformedError
+from index.utils.errors import SeridNotIsNumberError,SeridNotInformedError
 
 
 class CollectSpider(scrapy.Spider):

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e96b8298-06b4-4fe8-a513-af99c2a66cd6/resourceGroups/StrategiGroup/providers/Microsoft.Web/sites/ServiceIndex",
+    "appService.deploySubpath": "indices"
+}
