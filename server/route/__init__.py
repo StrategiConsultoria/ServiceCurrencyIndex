@@ -28,15 +28,16 @@ async def all_indices(file):
         for item in items:
             data_indice.append(item.to_json())
         
-        df = pandas.DataFrame(data_indice)
+        
 
 
         if file == 'csv':
             file_temp = tempfile.NamedTemporaryFile()
+            df = pandas.DataFrame(data_indice)
             df.to_csv(file_temp.name, encoding='utf-8', index=False)
             return send_file(file_temp.name, download_name=f'{indice}.csv')
         else:
-            return json.loads(df.to_json())
+            return jsonify(data_indice)
 
     else:
         await update_database()
@@ -55,16 +56,17 @@ async def all_indices(file):
             elif item.name == 'igpm':
                 data_indice['igpm'].append(item.to_json())
 
-        df = pandas.DataFrame(data_indice)
+        
 
         if file == 'csv':
             file_temp = tempfile.NamedTemporaryFile()
+            df = pandas.DataFrame(data_indice)
             
             df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
             return send_file(file_temp.name, download_name='data.csv')
 
         else:
-            return json.loads(df.to_json())
+            return jsonify(data_indice)
 
 
 @app.route('/<file>/<year>/')
