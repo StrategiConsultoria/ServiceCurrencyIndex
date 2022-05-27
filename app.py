@@ -4,3 +4,5 @@ import logging
 logging.basicConfig( format='%(asctime)s - %(module)s - %(filename)s - %(message)s')
 
 app =  create_app()
+if __name__ == '__main__':
+    app.run()
