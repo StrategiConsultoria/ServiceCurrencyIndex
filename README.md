@@ -1,5 +1,5 @@
 # Grupo Strategi
-## Service Index 
+## ServiceCurrencyIndex
 
 ###### type csv
 ```
