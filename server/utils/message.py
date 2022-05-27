@@ -1,7 +1,9 @@
 class Message():
     """class to messages of return"""
-    year_invalid_not_is_number = {"Error": "Year not is number"}
-    year_invalid_is_future = {"Error": "Year invalid is future"}
+    start_year_invalid_not_is_number = {"Error": "Year not is number"}
+    start_year_invalid_is_future = {"Error": "Year invalid is future"}
+
+    
 
     end_year_invalid_is_future = {"Error": "End year invalid is future"}
     end_year_invalid_not_is_number = {"Error": "End year not is number"}
