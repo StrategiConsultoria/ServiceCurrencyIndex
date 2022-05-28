@@ -24,22 +24,22 @@ async def index(file):
     try: # verifi start_month if not defined set 1 
         start_month = capture_month(request, 'start_month')
     except DateInputError as error:
-        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
+        return ResponseErrors(str(error),request).value,400
 
     try: # verifi end_month if not defined set 12 
         end_month = capture_month(request, 'end_month')
     except DateInputError as error:
-        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
+        return ResponseErrors(str(error),request).value,400
 
     try: # verifi start_year if not defined set year
         start_year = capture_year(request, 'start_year')
     except DateInputError as error:
-        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
+        return ResponseErrors(str(error),request).value,400
 
     try: # verifi end_year if not defined set year
         end_year = capture_year(request, 'end_year')
     except DateInputError as error:
-        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
+        return ResponseErrors(str(error),request).value,400
     
 
     if index: # filter indice
