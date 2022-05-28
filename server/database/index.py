@@ -1,7 +1,7 @@
 from datetime import date as dt
 from tortoise.models import Model
 from tortoise.fields import IntField, DateField, CharField
-from server.utils.errors import IndexNameError, IndexDateError
+from server.utils.errors import IndexDateError
 
 
 class Index(Model):
