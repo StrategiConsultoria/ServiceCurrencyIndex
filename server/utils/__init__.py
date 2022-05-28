@@ -3,7 +3,13 @@ import logging
 import json
 from .errors import EnvIndexIsNotAJson
 from .message import MessageLog
-def check_env():
+
+def check_env() -> None:
+    """checks if the variable exists in the environment
+
+    :raise:
+        EnvIndexIsNotAJson
+    """
     try:
         json.loads(os.environ['INDEXS'])
     except KeyError:

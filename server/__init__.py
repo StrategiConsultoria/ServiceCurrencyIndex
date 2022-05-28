@@ -8,7 +8,7 @@ import asyncio
 import dotenv
 from server.utils import check_env
 
-def create_app():
+def create_app() -> Flask:
     dotenv.load_dotenv('index.env')
     check_env()
     logging.info('Start App')

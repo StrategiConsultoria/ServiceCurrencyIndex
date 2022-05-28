@@ -29,7 +29,7 @@ async def add_index(index: str, items_index: list) -> None:
             except DateInputError:
                 logging.warning(MessageLog['date_invalide_new_index'].value)
 
-async def update_database():
+async def update_database() -> None:
     """Update the database after verifi if not exist the indice of month previous"""
 
     date_now = datetime.now()

@@ -3,8 +3,14 @@ import json
 import os
 
 
-async def command(serid) -> list:
-    """call the collect with scrapy in cmd"""
+async def command(serid:int) -> list:
+    """call the collect with scrapy in cmd
+    
+    :entry:
+        :serid: int
+    :return:
+        list -> [{'date':str,'index':str}]
+    """
     output_file = f'{serid}.json'
     if os.path.isfile(output_file):
         os.remove(output_file)
