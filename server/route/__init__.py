@@ -16,7 +16,7 @@ app = current_app
 async def index(file):
     date_now = datetime.now()
     
-    indice = request.args.get('indice')
+    index = request.args.get('index')
 
     try: # verifi start_month if not defined set 1 
         start_month = request.args.get('start_month', None)
@@ -65,13 +65,13 @@ async def index(file):
             end_year = date_now.year
     except:
         return Message.end_year_invalid_not_is_number
+    
 
-
-    if indice: # filter indice
+    if index: # filter indice
         
         data_indice = []
 
-        items = await Index.filter(name=indice, date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
+        items = await Index.filter(name=index, date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
         for item in items:
             data_indice.append(item.to_json()) # add item in data how json
         
@@ -79,9 +79,9 @@ async def index(file):
 
         if file == 'csv':
             file_temp = tempfile.NamedTemporaryFile()
-            
+            print(file_temp)
             df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
-            return send_file(file_temp.name, download_name=f'{indice}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
+            return send_file(file_temp.name, download_name=f'{index}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
 
         else:
             return json.loads(df.to_json())
