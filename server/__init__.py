@@ -9,7 +9,7 @@ import dotenv
 from server.utils import check_env
 
 def create_app():
-    dotenv.load_dotenv()
+    dotenv.load_dotenv('index.env')
     check_env()
     logging.info('Start App')
     app = Flask(__name__)
