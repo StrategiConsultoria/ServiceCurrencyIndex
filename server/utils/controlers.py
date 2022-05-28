@@ -5,9 +5,9 @@ from .validate import validate_date
 from .commands import update_igpm, update_incc, update_ipca
 
 
-async def add_indice(indice:str, item_indice:list) -> None:
+async def add_indice(indice: str, item_indice: list) -> None:
     """add the indice if not exist else stop
-    
+
     :entry:
         :indice: str -> ["ipca","incc","igpm"]
         :item_indice: list -> {"date":date,"indice":str}
@@ -28,7 +28,7 @@ async def update_database():
     """Atualiza o banco de dados apos verificar se nao existe o indice do mes passado"""
 
     date_now = datetime.now()
-    date = dt(date_now.year, date_now.month-1, 1)#recremet -1 in month
+    date = dt(date_now.year, date_now.month-1, 1)  # recremet -1 in month
 
     item_ipca = await Index.filter(date=date, name='ipca').first()
     if not item_ipca:

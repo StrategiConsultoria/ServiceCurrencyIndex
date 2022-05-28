@@ -11,7 +11,7 @@ class Index(Model):
     index = CharField(50)
 
     @staticmethod
-    async def new(name:str, date:dt, index:str) -> Model:
+    async def new(name: str, date: dt, index: str) -> Model:
         """function to create row in table
         :entry:
             :name: str
@@ -19,11 +19,11 @@ class Index(Model):
             :index: str
         :return:
             :Index: Model
-        
+
         :raise:
             IndiceNameError
             IndiceDateError
-        
+
         """
         if name not in ('ipca', 'incc', 'igpm'):  # filter indices
             raise IndiceNameError()

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Message(Enum):
     """class to messages of return"""
     start_year_not_number = "start_year Is Not a Number!"

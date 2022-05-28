@@ -45,7 +45,7 @@ def capture_month(request, arg: str) -> int:
 
     :return:
         int: 5
-    
+
     :raise:
         MonthInputError
     """

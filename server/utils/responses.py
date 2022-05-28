@@ -3,6 +3,7 @@ from flask import jsonify
 
 class ResponseErrors():
     """_class with format for responses in error"""
+
     def __init__(self, message, request):
         """_entry values and set in value the format
         :entry:
