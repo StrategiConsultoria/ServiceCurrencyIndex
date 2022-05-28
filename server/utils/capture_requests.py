@@ -27,9 +27,9 @@ def capture_year(request, arg: str) -> int:
                 year = 1000
 
             if not year <= date_now.year:  # year cannot be greater than the current year
-                raise DateInputError(Message(arg+'_future').value)
+                raise DateInputError(Message[arg+'_future'].value)
         else:
-            raise DateInputError(Message(arg+'_not_number').value)
+            raise DateInputError(Message[arg+'_not_number'].value)
     else:
         year = date_now.year
 
@@ -61,7 +61,7 @@ def capture_month(request, arg: str) -> int:
                 month = 12
 
         else:
-            raise DateInputError(Message(arg+'_not_number').value)
+            raise DateInputError(Message[arg+'_not_number'].value)
     else:
         if 'start' in arg:
             month = 1
