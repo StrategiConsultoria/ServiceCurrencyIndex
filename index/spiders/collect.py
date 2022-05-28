@@ -30,7 +30,7 @@ class CollectSpider(scrapy.Spider):
     def parse(self, response):
         for row in response.css('table#grd_DXMainTable'):
             for celula in row.css('tr')[3:]:
-                year_month, indice = celula.css('td')
+                year_month, index = celula.css('td')
                 year_month = year_month.css('::text').get()
-                indice = indice.css('::text').get()
-                yield {'date': year_month, 'indice': indice}
+                index = index.css('::text').get()
+                yield {'date': year_month, 'index': index}

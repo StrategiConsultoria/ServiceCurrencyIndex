@@ -1,6 +1,6 @@
 from datetime import date as dt
 from datetime import datetime
-from server.database.indices import Indice
+from server.database.index import Index
 from .validate import validate_date
 from .commands import update_igpm, update_incc, update_ipca
 
@@ -16,9 +16,9 @@ async def add_indice(indice:str, item_indice:list) -> None:
     for row in item_indice:
         if row.get('date'):
             date = await validate_date(row['date'])
-            item = await Indice.filter(date=date, name=indice).first()
+            item = await Index.filter(date=date, name=indice).first()
             if not item:
-                await Indice.new(indice, date, row['indice'])
+                await Index.new(indice, date, row['index'])
             else:
                 return
 
@@ -30,19 +30,19 @@ async def update_database():
     date_now = datetime.now()
     date = dt(date_now.year, date_now.month-1, 1)#recremet -1 in month
 
-    item_ipca = await Indice.filter(date=date, name='ipca').first()
+    item_ipca = await Index.filter(date=date, name='ipca').first()
     if not item_ipca:
         item_ipca = await update_ipca()
         item_ipca = item_ipca[::-1]
         await add_indice('ipca', item_ipca)
 
-    item_incc = await Indice.filter(date=date, name='incc').first()
+    item_incc = await Index.filter(date=date, name='incc').first()
     if not item_incc:
         item_incc = await update_incc()
         item_incc = item_incc[::-1]
         await add_indice('incc', item_incc)
 
-    item_igpm = await Indice.filter(date=date, name='igpm').first()
+    item_igpm = await Index.filter(date=date, name='igpm').first()
     if not item_igpm:
         item_igpm = await update_igpm()
         item_igpm = item_igpm[::-1]

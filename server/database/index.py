@@ -4,21 +4,21 @@ from tortoise.fields import IntField, DateField, CharField
 from server.utils.errors import IndiceNameError, IndiceDataError
 
 
-class Indice(Model):
+class Index(Model):
     id = IntField(pk=True)
     name = CharField(10)
     date = DateField(blank=True)
-    indice = CharField(50)
+    index = CharField(50)
 
     @staticmethod
-    async def new(name:str, date:dt, indice:str) -> Model:
+    async def new(name:str, date:dt, index:str) -> Model:
         """function to create row in table
         :entry:
             :name: str
             :date: date
-            :indice: str
+            :index: str
         :return:
-            :Indice: Model
+            :Index: Model
         
         :raise:
             IndiceNameError
@@ -30,7 +30,7 @@ class Indice(Model):
         if not type(date) == dt:
             raise IndiceDataError()
 
-        return await Indice.create(name=name, date=date, indice=indice)
+        return await Index.create(name=name, date=date, index=index)
 
     def to_json(self) -> dict:
-        return {"date": str(self.date), "indice": self.indice}
+        return {"date": str(self.date), "index": self.index}

@@ -1,5 +1,5 @@
 from flask import request, current_app, jsonify, send_file, abort
-from server.database.indices import Indice
+from server.database.index import Index
 from server.utils.controlers import update_database
 from server.utils.message import Message
 from datetime import datetime
@@ -71,7 +71,7 @@ async def index(file):
         
         data_indice = []
 
-        items = await Indice.filter(name=indice, date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
+        items = await Index.filter(name=indice, date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
         for item in items:
             data_indice.append(item.to_json()) # add item in data how json
         
@@ -90,7 +90,7 @@ async def index(file):
 
         data_indice = {"ipca": [], "incc": [], "igpm": []}
         
-        items = await Indice.filter(date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
+        items = await Index.filter(date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
         for item in items:
             if item.name == 'ipca':
                 data_indice['ipca'].append(item.to_json())
