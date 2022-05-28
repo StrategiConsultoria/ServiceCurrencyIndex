@@ -37,7 +37,8 @@ async def update_database():
 
     indexs = json.loads(os.environ.get('INDEXS','{}'))
     for index, serid in indexs.items():
-        items = await command(serid)
-        items = items[::-1]
-        await add_index(index, items)
-    
+        index_item = await Index.filter(date=date, name=index).first()
+        if not index_item:
+            items = await command(serid)
+            items = items[::-1]
+            await add_index(index, items)
