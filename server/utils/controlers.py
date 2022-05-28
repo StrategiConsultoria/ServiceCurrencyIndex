@@ -2,9 +2,11 @@ from datetime import date as dt
 from datetime import datetime
 from server.database.index import Index
 from .validate import validate_date
-from .commands import update_igpm, update_incc, update_ipca
+from .commands import command
 from .errors import DateInputError
 import logging
+import os
+import json
 
 
 async def add_index(index: str, items_index: list) -> None:
@@ -25,8 +27,7 @@ async def add_index(index: str, items_index: list) -> None:
                 else:
                     return
             except DateInputError:
-                logging.warning('Date Invalid In Create Index')
-
+                logging.warning(MessageLog['date_invalide_new_index'].value)
 
 async def update_database():
     """Update the database after verifi if not exist the indice of month previous"""
@@ -34,20 +35,9 @@ async def update_database():
     date_now = datetime.now()
     date = dt(date_now.year, date_now.month-1, 1)  # recremet -1 in month
 
-    item_ipca = await Index.filter(date=date, name='ipca').first()
-    if not item_ipca:
-        item_ipca = await update_ipca()
-        item_ipca = item_ipca[::-1]
-        await add_index('ipca', item_ipca)
-
-    item_incc = await Index.filter(date=date, name='incc').first()
-    if not item_incc:
-        item_incc = await update_incc()
-        item_incc = item_incc[::-1]
-        await add_index('incc', item_incc)
-
-    item_igpm = await Index.filter(date=date, name='igpm').first()
-    if not item_igpm:
-        item_igpm = await update_igpm()
-        item_igpm = item_igpm[::-1]
-        await add_index('igpm', item_igpm)
+    indexs = json.loads(os.environ.get('INDEXS','{}'))
+    for index, serid in indexs.items():
+        items = await command(serid)
+        items = items[::-1]
+        await add_index(index, items)
+    

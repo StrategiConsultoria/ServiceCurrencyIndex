@@ -11,3 +11,9 @@ class Message(Enum):
 
     start_month_not_number = "start_month Is Not a Number!"
     end_month_not_number = "end_month Is Not a Number!"
+
+class MessageLog(Enum):
+    env_index_not_found = '.env -> INDEXS Not Found' 
+    env_index_not_json = 'INDEXS Is Not a Json' 
+
+    date_invalide_new_index = 'Date Invalid In Create Index'
