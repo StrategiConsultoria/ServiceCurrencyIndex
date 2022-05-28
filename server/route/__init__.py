@@ -44,22 +44,22 @@ async def index(file):
 
     if index: # filter indice
         
-        data_indice = []
-
         items = await Index.filter(name=index, date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date') # filter indice range date values
-        for item in items:
-            data_indice.append(item.to_json()) # add item in data how json
         
-        df = pandas.DataFrame(data_indice)
-
         if file == 'csv':
             file_temp = tempfile.NamedTemporaryFile()
-            print(file_temp)
+            data_indice = []
+            for item in items:
+                data_indice.append({'date':item.date.strftime('%d/%m/%Y'),'index':item.index.replace(',','.')})
+            df = pandas.DataFrame(data_indice)
             df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
             return send_file(file_temp.name, download_name=f'{index}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
 
         else:
-            return json.loads(df.to_json())
+            data_indice = {}
+            for item in items:
+                data_indice[item.date.strftime('%d/%m/%Y')] = item.index.replace(',','.')
+            return jsonify(data_indice)
 
     else:
 
