@@ -3,11 +3,11 @@ class DateInputError(Exception):
         super().__init__(error)
 
 
-class IndiceNameError(Exception):
+class IndexNameError(Exception):
     def __init__(self):
         super().__init__('Name Indice Invalid ["ipca","incc","igpm"]!')
 
 
-class IndiceDataError(Exception):
+class IndexDateError(Exception):
     def __init__(self):
         super().__init__('Date Invalid Type Error!')

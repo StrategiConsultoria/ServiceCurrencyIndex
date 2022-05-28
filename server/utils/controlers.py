@@ -25,7 +25,6 @@ async def add_indice(indice: str, item_indice: list) -> None:
 
 async def update_database():
     """Update the database after verifi if not exist the indice of month previous"""
-    """Atualiza o banco de dados apos verificar se nao existe o indice do mes passado"""
 
     date_now = datetime.now()
     date = dt(date_now.year, date_now.month-1, 1)  # recremet -1 in month

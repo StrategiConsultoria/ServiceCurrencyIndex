@@ -50,8 +50,7 @@ async def index(file):
             file_temp = tempfile.NamedTemporaryFile()
             data_index = []
             for item in items:
-                data_index.append({'date': item.date.strftime(
-                    '%d/%m/%Y'), 'index': item.index.replace(',', '.')})
+                data_index.append({'date': item.get_date_format, 'index': item.get_index_format})
             df = pandas.DataFrame(data_index)
             df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
             return send_file(file_temp.name, download_name=f'{index}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
@@ -59,8 +58,7 @@ async def index(file):
         else:
             data_index = {}
             for item in items:
-                data_index[item.date.strftime(
-                    '%d/%m/%Y')] = item.index.replace(',', '.')
+                data_index[item.get_date_format] = item.get_index_format
             return jsonify(data_index)
 
     else:
@@ -71,10 +69,8 @@ async def index(file):
         items = await Index.filter(date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date')
         for item in items:
             if data_index.get(item.name):
-                data_index[item.name][item.date.strftime(
-                    '%d/%m/%Y')] = item.index.replace(',', '.')
+                data_index[item.name][item.get_date_format] = item.get_index_format
             else:
-                data_index[item.name] = {item.date.strftime(
-                    '%d/%m/%Y'): item.index.replace(',', '.')}
+                data_index[item.name] = {item.get_date_format: item.get_index_format}
 
         return jsonify(data_index)
