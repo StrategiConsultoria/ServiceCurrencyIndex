@@ -1,17 +1,20 @@
 class Message():
     """class to messages of return"""
-    start_year_invalid_not_is_number = {"Error": "Year not is number"}
-    start_year_invalid_is_future = {"Error": "Year invalid is future"}
+    start_year_not_number = "start_year Not Is Number!"
+    start_year_future = "start_year Is Future!"
 
-    
+    end_year_not_number = "end_year Not Is Number!"
+    end_year_furure = "end_year Is Future!"
 
-    end_year_invalid_is_future = {"Error": "End year invalid is future"}
-    end_year_invalid_not_is_number = {"Error": "End year not is number"}
+    start_month_not_number = "start_month Not Is Number!"
+    end_month_not_number = "end_month Not Is Number!"
 
-    start_month_invalid_not_in_interval = {
-        "Error": "Start month invalid not in invalid 1 - 12"}
-    start_menth_invalid_not_in_number = {"Error": "Start month not is number"}
+    def __init__(self,value):
+        self.value = getattr(Message, value)
 
-    end_month_invalid_not_in_interval = {
-        "Error": "End month invalid not in invalid 1 - 12"}
-    end_month_invalid_not_in_number = {"Error": "End month not is number"}
+if __name__ == '__main__':
+    print( Message('start_year_not_number').value )
+    print( Message('start_year_future').value )
+
+    print( Message('end_year_not_number').value )
+    print( Message('end_year_furure').value )
