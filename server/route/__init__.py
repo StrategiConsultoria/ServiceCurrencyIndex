@@ -48,33 +48,33 @@ async def index(file):
 
         if file == 'csv':
             file_temp = tempfile.NamedTemporaryFile()
-            data_indice = []
+            data_index = []
             for item in items:
-                data_indice.append({'date': item.date.strftime(
+                data_index.append({'date': item.date.strftime(
                     '%d/%m/%Y'), 'index': item.index.replace(',', '.')})
-            df = pandas.DataFrame(data_indice)
+            df = pandas.DataFrame(data_index)
             df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
             return send_file(file_temp.name, download_name=f'{index}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
 
         else:
-            data_indice = {}
+            data_index = {}
             for item in items:
-                data_indice[item.date.strftime(
+                data_index[item.date.strftime(
                     '%d/%m/%Y')] = item.index.replace(',', '.')
-            return jsonify(data_indice)
+            return jsonify(data_index)
 
     else:
 
-        data_indice = {"ipca": [], "incc": [], "igpm": []}
+        data_index = {}
 
         # filter indice range date values
         items = await Index.filter(date__range=[f'{start_year}-{start_month}', f'{end_year}-{end_month}']).order_by('date')
         for item in items:
-            if item.name == 'ipca':
-                data_indice['ipca'].append(item.to_json())
-            elif item.name == 'incc':
-                data_indice['incc'].append(item.to_json())
-            elif item.name == 'igpm':
-                data_indice['igpm'].append(item.to_json())
+            if data_index.get(item.name):
+                data_index[item.name][item.date.strftime(
+                    '%d/%m/%Y')] = item.index.replace(',', '.')
+            else:
+                data_index[item.name] = {item.date.strftime(
+                    '%d/%m/%Y'): item.index.replace(',', '.')}
 
-        return jsonify(data_indice)
+        return jsonify(data_index)
