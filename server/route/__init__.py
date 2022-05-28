@@ -44,7 +44,9 @@ async def index(file):
         start_year = request.args.get('start_year', None)
         if start_year:
             start_year = int(start_year)
-            if not start_year >= 1 and not start_year <= date_now.year:
+            if start_year < 1000:
+                start_year = 1000
+            if not start_year <= date_now.year:
                 return Message.start_year_invalid_is_future
         else:
             start_year = date_now.year
@@ -55,7 +57,9 @@ async def index(file):
         end_year = request.args.get('end_year', None)
         if end_year:
             end_year = int(end_year)
-            if not year >= 1 and not year <= date_now.year:
+            if end_year < 1000:
+                end_year = 1000
+            if not end_year <= date_now.year:
                 return Message.end_year_invalid_is_future
         else:
             end_year = date_now.year
@@ -95,5 +99,4 @@ async def index(file):
             elif item.name == 'igpm':
                 data_indice['igpm'].append(item.to_json())
 
-        df = pandas.DataFrame(data_indice)
-        return json.loads(df.to_json())
+        return jsonify(data_indice)
