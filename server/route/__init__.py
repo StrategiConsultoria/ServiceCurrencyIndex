@@ -2,6 +2,9 @@ from flask import request, current_app, jsonify, send_file, abort
 from server.database.index import Index
 from server.utils.controlers import update_database
 from server.utils.message import Message
+from server.utils.capture_requests import capture_month,capture_year
+from server.utils.errors import DateInputError
+from server.utils.responses import ResponseErrors
 from datetime import datetime
 import pandas
 import json
@@ -19,52 +22,24 @@ async def index(file):
     index = request.args.get('index')
 
     try: # verifi start_month if not defined set 1 
-        start_month = request.args.get('start_month', None)
-        if start_month:
-            start_month = int(start_month)
-            if not start_month >= 1 and not start_month <= 12:
-                return Message.start_month_invalid_not_in_interval
-        else:
-            start_month = 1
-    except:
-        return Message.start_menth_invalid_not_in_number
+        start_month = capture_month(request, 'start_month')
+    except DateInputError as error:
+        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
 
     try: # verifi end_month if not defined set 12 
-        end_month = request.args.get('end_month', None)
-        if end_month:
-            end_month = int(end_month)
-            if not end_month >= 1 and not end_month <= 12:
-                return Message.end_month_invalid_not_in_interval
-        else:
-            end_month = 12
-    except:
-        return Message.end_month_invalid_not_in_number
-    
+        end_month = capture_month(request, 'end_month')
+    except DateInputError as error:
+        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
+
     try: # verifi start_year if not defined set year
-        start_year = request.args.get('start_year', None)
-        if start_year:
-            start_year = int(start_year)
-            if start_year < 1000:
-                start_year = 1000
-            if not start_year <= date_now.year:
-                return Message.start_year_invalid_is_future
-        else:
-            start_year = date_now.year
-    except:
-        return Message.start_year_invalid_not_is_number
+        start_year = capture_year(request, 'start_year')
+    except DateInputError as error:
+        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
 
     try: # verifi end_year if not defined set year
-        end_year = request.args.get('end_year', None)
-        if end_year:
-            end_year = int(end_year)
-            if end_year < 1000:
-                end_year = 1000
-            if not end_year <= date_now.year:
-                return Message.end_year_invalid_is_future
-        else:
-            end_year = date_now.year
-    except:
-        return Message.end_year_invalid_not_is_number
+        end_year = capture_year(request, 'end_year')
+    except DateInputError as error:
+        return ResponseErrors(str(error),request.args,request.form,request.method).value,400
     
 
     if index: # filter indice

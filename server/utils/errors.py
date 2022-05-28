@@ -1,6 +1,6 @@
 class DateInputError(Exception):
-    def __init__(self):
-        super().__init__('Date Invalid year.month')
+    def __init__(self,error):
+        super().__init__(error)
 
 
 class IndiceNameError(Exception):
