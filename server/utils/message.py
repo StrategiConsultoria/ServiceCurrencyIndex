@@ -12,6 +12,8 @@ class Message(Enum):
     start_month_not_number = "start_month Is Not a Number!"
     end_month_not_number = "end_month Is Not a Number!"
 
+    index_not_found = 'index Not Found!'
+
 class MessageLog(Enum):
     """class to message of log"""
     env_index_not_found = '.env -> INDEXS Not Found' 

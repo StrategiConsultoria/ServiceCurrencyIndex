@@ -3,6 +3,7 @@ from server.database.index import Index
 from server.utils.capture_requests import capture_month, capture_year
 from server.utils.errors import DateInputError
 from server.utils.responses import ResponseErrors
+from server.utils.message import Message
 import pandas
 import tempfile
 import logging
@@ -71,4 +72,4 @@ async def route_csv():
         return send_file(file_temp.name, download_name=f'{index}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
 
     else:
-        return ResponseErrors('index Not Found',request).value, 400   
+        return ResponseErrors(Message['index_not_found'].value,request).value, 400   
