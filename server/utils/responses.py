@@ -9,7 +9,7 @@ class ResponseErrors():
 
         :entry:
             :message: str -> 'Message of error'
-            :request: Flask.request
+            :request: Request -> Flask
         """
         self.value = jsonify(
             {"error": message, "args": request.args, "form": request.form, "method": request.method})

@@ -13,6 +13,7 @@ class Message(Enum):
     end_month_not_number = "end_month Is Not a Number!"
 
 class MessageLog(Enum):
+    """class to message of log"""
     env_index_not_found = '.env -> INDEXS Not Found' 
     env_index_not_json = 'INDEXS Is Not a Json' 
 
