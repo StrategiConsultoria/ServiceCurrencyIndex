@@ -1,12 +1,12 @@
 from time import sleep
 import scrapy
 from index.utils.errors import SeridNotIsNumberError,SeridNotInformedError
+from index.utils.urls import Urls
 
 
 class CollectSpider(scrapy.Spider):
     name = 'collect'
-    allowed_domains = ['www.ipeadata.gov.br']
-    start_urls = ['http://www.ipeadata.gov.br/']
+    allowed_domains = [Urls['ipeadata_accept'].value]
 
     def start_requests(self):
         """Start
@@ -25,7 +25,7 @@ class CollectSpider(scrapy.Spider):
         if not serid.isnumeric():
             raise SeridNotIsNumberError()
 
-        yield scrapy.Request(url=f'http://www.ipeadata.gov.br/exibeserie.aspx?serid={serid}', callback=self.parse)
+        yield scrapy.Request(url=f'{Urls["ipeadata_request"].value}{serid}', callback=self.parse)
 
     def parse(self, response):
         for row in response.css('table#grd_DXMainTable'):
