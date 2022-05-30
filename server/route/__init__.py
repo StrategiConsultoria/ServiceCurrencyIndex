@@ -15,7 +15,7 @@ logging.info('Start Routes')
 app = current_app
 
 
-@app.route('/<file>')
+@app.route('/<file>/')
 async def index(file):
     date_now = datetime.now()
 
