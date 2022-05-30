@@ -1,4 +1,3 @@
-from time import sleep
 import scrapy
 from index.utils.errors import SeridNotIsNumberError,SeridNotInformedError
 from index.utils.urls import Urls
