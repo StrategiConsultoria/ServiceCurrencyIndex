@@ -5,22 +5,16 @@
 ```
   GET /csv?index=ipca
 
-  GET /csv?start_year=2021
   GET /csv?start_year=2021&index=ipca
 
-  GET /csv?end_year=2021
   GET /csv?end_year=2021&index=ipca
   
-  GET /csv?start_month=5
   GET /csv?start_month=5&index=ipca
 
-  GET /csv?end_month=10
   GET /csv?end_month=10&index=incc
 
-  GET /csv?start_month=5&end_month=10
   GET /csv?start_month=5&end_month=10&index=igmp
 
-  GET /csv?end_year=2022
   GET /csv?end_year=2022&index=ipca
 ```
 ###### type json
