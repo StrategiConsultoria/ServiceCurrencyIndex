@@ -38,11 +38,11 @@ def ipeadata_route(file):
         response = {}
 
         for index in indexs:
-            response[index.date] = index.index
+            response[index.date] = f'{index.index:.6f}'
         return jsonify(response)   
     else:
         file_temp = tempfile.NamedTemporaryFile()
-        response = [{'DATE':index.date,'INDEX':index.index} for index in indexs]
+        response = [{'DATE':index.date,'INDEX':f'{index.index:.6f}'} for index in indexs]
         df = pandas.DataFrame(response)
         df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
         return send_file(file_temp.name, download_name=f'{index_name}_{start_month}-{start_year}_{end_month}-{end_year}.csv')

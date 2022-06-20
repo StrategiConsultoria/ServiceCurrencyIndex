@@ -32,6 +32,11 @@ def add_indexs(name,serid):
                 print(f'Stop {name} - {news_count}')
                 return
             else:
+                try:
+                    index = float(index)
+                except:
+                    index = 0.0
+                
                 db.session.add(Index(name,date,index))
                 db.session.commit()
                 news_count+=1

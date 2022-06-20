@@ -7,7 +7,7 @@ class Index(db.Model):
     ID = db.Column(db.Integer,primary_key=True)
     NAME = db.Column(db.String)
     DATE = db.Column(db.Date)
-    INDEX = db.Column(db.String)
+    INDEX = db.Column(db.Float)
     def __init__(self,name,date,index):
         super().__init__()
         if type(date) == dt:
@@ -17,7 +17,7 @@ class Index(db.Model):
             date = dt(*date)
         self.NAME = name
         self.DATE = date
-        self.INDEX = index
+        self.INDEX = float(index)
     
     @property
     def date(self):
