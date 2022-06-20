@@ -1,7 +1,7 @@
+import json
+
 from server.scrape import RunningScrape
 from server.scrape.ipeadata import IpeadataScrape
-from pprint import pprint
-import json
 
 run = RunningScrape()
 
@@ -14,5 +14,5 @@ run.join(incc, 'incc')
 igpm = IpeadataScrape(37796)
 run.join(igpm, 'igpm')
 
-with open('out.json','w') as file:
+with open('out.json', 'w') as file:
     file.write(json.dumps(run.start()))

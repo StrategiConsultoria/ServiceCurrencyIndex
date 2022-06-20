@@ -1,8 +1,8 @@
 from flask import request
-from contextlib import suppress
+from .exceptions import NAN
 
 
-def get_date_in_args(arg,default,minimun,maximun) -> int:
+def get_date_in_args(arg, default, minimun, maximun) -> int:
     """ get numeric to date in args
 
     :entry:
@@ -10,13 +10,13 @@ def get_date_in_args(arg,default,minimun,maximun) -> int:
         :default: int -> Default number in case it doesn't exist
         :minimun: int -> Minimum number not to give date error
         :maximun: int -> Maximum number to not put future numbers
-    
+
     :return:
         Exception
-    
+
     :return:
         int
-    
+
     """
     date = request.args.get(arg)
     if date:
@@ -28,7 +28,7 @@ def get_date_in_args(arg,default,minimun,maximun) -> int:
                 date = maximun
 
         except Exception:
-            raise Exception(f'{arg} - is not a number!')
+            raise NAN
     else:
         date = default
     return date
