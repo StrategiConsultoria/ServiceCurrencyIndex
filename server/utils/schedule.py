@@ -33,6 +33,7 @@ def add_indexs(name,serid):
                 return
             else:
                 try:
+                    index = index.replace('.','').replace(',','.')
                     index = float(index)
                 except:
                     index = 0.0
@@ -45,7 +46,7 @@ def add_indexs(name,serid):
 def check_indexs(app):
     print('Start Check')
     with app.app_context():
-        add_indexs('ipca',38391)
+        add_indexs('ipca',36482)
         add_indexs('incc',33596)
         add_indexs('igpm',37796)
     print('Closed Check')
