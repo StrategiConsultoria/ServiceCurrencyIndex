@@ -1,6 +1,5 @@
-from datetime import date as dt
-
 from requests_html import HTMLSession
+from contextlib import suppress
 
 
 class IpeadataScrape():
@@ -13,15 +12,12 @@ class IpeadataScrape():
     def scraper(self,response):
         table = response.html.find('table#grd_DXMainTable',first=True)
         for row in table.find('tr')[3:]:
-            try:
+            with suppress(Exception):
                 date, index = row.find('td')
-
                 date = self.string_to_data_string(date.text)
                 index = self.replace_dot_index(index.text)
-                
                 yield {'date':date,'index':index}
-            except:
-                ...
+                
     def string_to_data_string(self,date):
         year, month = date.split('.')
         return f'1-{month}-{year}'

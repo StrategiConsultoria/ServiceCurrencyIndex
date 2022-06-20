@@ -30,10 +30,9 @@ def ipeadata_route(file):
 
     try:
         decimal = int(request.args.get('decimal',6))
-    except:
+    except Exception:
         decimal = 6
     
-
     start_date = dt(start_year,start_month,1)
     end_date = dt(end_year,end_month,1)
 

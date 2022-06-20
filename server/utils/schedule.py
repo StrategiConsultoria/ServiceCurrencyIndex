@@ -34,7 +34,7 @@ def add_indexs(name,serid):
             else:
                 try:
                     index = float(index)
-                except:
+                except Exception:
                     index = 0.0        
                 db.session.add(Index(name,date,index))
                 db.session.commit()

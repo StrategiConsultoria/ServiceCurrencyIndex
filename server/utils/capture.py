@@ -1,4 +1,5 @@
 from flask import request
+from contextlib import suppress
 
 
 def get_date_in_args(arg,default,minimun,maximun) -> int:
@@ -26,7 +27,7 @@ def get_date_in_args(arg,default,minimun,maximun) -> int:
             elif date > maximun:
                 date = maximun
 
-        except:
+        except Exception:
             raise Exception(f'{arg} - is not a number!')
     else:
         date = default

@@ -1,7 +1,7 @@
 from flask import Flask
 
-from server.database import db
 from server.utils.schedule import start_schedule,check_indexs
+from server import database
 
 
 def create_app():
@@ -11,8 +11,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     with app.app_context():
-        db.init_app(app)
-        db.create_all()
+        database.init_app(app)
         from server.routes import ipeadata
         check_indexs(app)
         start_schedule(app)
