@@ -33,11 +33,9 @@ def add_indexs(name,serid):
                 return
             else:
                 try:
-                    index = index.replace('.','').replace(',','.')
                     index = float(index)
                 except:
-                    index = 0.0
-                
+                    index = 0.0        
                 db.session.add(Index(name,date,index))
                 db.session.commit()
                 news_count+=1

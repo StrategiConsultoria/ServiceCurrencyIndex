@@ -27,8 +27,9 @@ class IpeadataScrape():
         return f'1-{month}-{year}'
 
     def replace_dot_index(self,index:str):
-        return index.replace(',','.')
-        
-
+        if ',' in index:
+            return index.replace('.','').replace(',','.')
+        else:
+            return index
 
         

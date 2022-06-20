@@ -23,11 +23,16 @@ def ipeadata_route(file):
     try:
         start_year = get_date_in_args('start_year',1000,1000,date_now.year)
         end_year = get_date_in_args('end_year',date_now.year,1000,date_now.year)
-
         start_month = get_date_in_args('start_month',1,1,12)
         end_month = get_date_in_args('end_month',12,1,12)
     except Exception as error:
         return jsonify({'error':str(error)}),402
+
+    try:
+        decimal = int(request.args.get('decimal',6))
+    except:
+        decimal = 6
+    
 
     start_date = dt(start_year,start_month,1)
     end_date = dt(end_year,end_month,1)
@@ -38,14 +43,21 @@ def ipeadata_route(file):
         response = {}
 
         for index in indexs:
-            response[index.date] = f'{index.index:.6f}'
+            response[index.date] = format_money(index.index,decimal)
         return jsonify(response)   
     else:
         file_temp = tempfile.NamedTemporaryFile()
-        response = [{'DATE':index.date,'INDEX':f'{index.index:.6f}'} for index in indexs]
+        response = [{'DATE':index.date,'INDEX':format_money(index.index,decimal)} for index in indexs]
         df = pandas.DataFrame(response)
         df.to_csv(file_temp.name, encoding='utf-8', index=False, sep=';')
         return send_file(file_temp.name, download_name=f'{index_name}_{start_month}-{start_year}_{end_month}-{end_year}.csv')
+
+def format_money(value,decimal):
+    formato = '{:.'+str(decimal)+'f}'
+    return formato.format(value).replace('.',',')
+    
+    
+    
 
 
 
