@@ -48,6 +48,7 @@ def check_indexs(app):
         add_indexs('ipca', 36482)
         add_indexs('incc', 33596)
         add_indexs('igpm', 37796)
+        add_indexs('v_incc',39618)
     print('Closed Check')
 
 
