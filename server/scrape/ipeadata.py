@@ -1,7 +1,8 @@
 from contextlib import suppress
 
 from requests_html import HTMLSession
-
+from urllib3.util import Retry
+from requests.adapters import HTTPAdapter
 
 class IpeadataScrape():
     def __init__(self, serid):
@@ -9,6 +10,10 @@ class IpeadataScrape():
 
     def start(self):
         session = HTMLSession()
+        retry = Retry(connect=5, backoff_factor=1.0)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
         return self.scraper(session.get(self.url_font))
 
     def scraper(self, response):
