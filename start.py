@@ -16,3 +16,4 @@ run.join(igpm, 'igpm')
 
 with open('out.json', 'w') as file:
     file.write(json.dumps(run.start()))
+
