@@ -7,7 +7,6 @@ from server.database import db
 from server.database.models.index import Index
 from server.scrape.ipeadata import IpeadataScrape
 
-
 def add_indexs(name, serid):
     """register index in database
     :entry:
@@ -18,7 +17,7 @@ def add_indexs(name, serid):
     print(f'Start {name}')
     now = datetime.now()
     news_count = 0
-    date_month_previous = dt(now.year, now.month, 1) - relativedelta(month=1)
+    date_month_previous = dt(now.year, now.month, 1) - relativedelta(months=1)
     index_month_previous = Index.query.filter_by(
         DATE=date_month_previous, NAME=name).first()
     if index_month_previous == None:
